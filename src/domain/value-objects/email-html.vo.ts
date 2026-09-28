@@ -2,7 +2,7 @@ import { HtmlCannotBeEmptyError } from "../errors/html-cannot-be-empty.error.js"
 import { HtmlIsTooLongError } from "../errors/html-is-too-long.error.js";
 
 export class EmailHtml {
-    private static readonly MAX_LENGTH: 100_000;
+    private static readonly MAX_LENGTH = 100_000;
     private readonly _value: string;
 
     private constructor(html: string){
