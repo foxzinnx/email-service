@@ -10,7 +10,7 @@ interface EmailProps {
     to: EmailAddress;
     subject: EmailSubject;
     body: EmailBody;
-    html?: EmailHtml;
+    html?: EmailHtml | undefined;
     createdAt: Date;
 }
 
