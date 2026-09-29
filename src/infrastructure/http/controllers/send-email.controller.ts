@@ -13,6 +13,6 @@ export class SendEmailController {
     async handle(request: SendEmailRequest, reply: FastifyReply){
         await this.sendEmailUseCase.execute(request.body);
 
-        return reply.status(202).send({ message: "Email sent successfully." });
+        return reply.status(200).send({ message: "Email sent successfully." });
     }
 }
