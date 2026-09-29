@@ -3,6 +3,7 @@ import type { EmailSenderProvider } from "../../ports/email-sender-provider.inte
 import type { Email } from "../../../domain/entities/email.entity.js";
 import { SendEmailUseCase } from "./send-email.use-case.js";
 import { SubjectCannotBeEmptyError } from "../../../domain/errors/subject-cannot-be-empty.error.js";
+import { EmailAddress } from "../../../domain/value-objects/email-address.vo.js";
 
 class FakeEmailSenderProvider implements EmailSenderProvider {
     public sent: Email[] = [];
@@ -16,6 +17,8 @@ describe("SendEmailUseCase", () => {
     let emailSender: FakeEmailSenderProvider;
     let sut: SendEmailUseCase;
 
+    const defaultSender = EmailAddress.create("no-reply@example.com")
+
     const validInput = {
         from: "sender@email.com",
         to: "receiver@email.com",
@@ -25,13 +28,14 @@ describe("SendEmailUseCase", () => {
 
     beforeEach(() => {
         emailSender = new FakeEmailSenderProvider();
-        sut = new SendEmailUseCase(emailSender);
+        sut = new SendEmailUseCase(emailSender, defaultSender);
     });
 
     it("should send a valid email", async () => {
         await sut.execute(validInput);
 
         expect(emailSender.sent).toHaveLength(1);
+        expect(emailSender.sent[0]?.from.value).toBe("no-reply@example.com");
         expect(emailSender.sent[0]?.subject.value).toBe("Hello");
         expect(emailSender.sent[0]?.html).toBeUndefined();
     });

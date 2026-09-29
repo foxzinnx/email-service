@@ -7,11 +7,14 @@ import type { EmailSenderProvider } from "../../ports/email-sender-provider.inte
 import type { SendEmailInput } from "./send-email.dto.js";
 
 export class SendEmailUseCase {
-    constructor(private readonly emailSender: EmailSenderProvider){}
+    constructor(
+        private readonly emailSender: EmailSenderProvider,
+        private readonly defaultSender: EmailAddress
+    ){}
 
     async execute(input: SendEmailInput): Promise<void>{
         const email = Email.create({
-            from: EmailAddress.create(input.from),
+            from: this.defaultSender,
             to: EmailAddress.create(input.to),
             subject: EmailSubject.create(input.subject),
             body: EmailBody.create(input.body),
