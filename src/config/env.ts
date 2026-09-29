@@ -27,7 +27,9 @@ const envSchema = z.object({
         .min(1, "SMTP_USER cannot be empty"),
     SMTP_PASS: z
         .string({ error: "SMTP_PASS is required" })
-        .min(1, "SMTP_PASS cannot be empty")
+        .min(1, "SMTP_PASS cannot be empty"),
+
+    MAIL_FROM: z.email({ error: "MAIL_FROM must be a valid email address" })
 });
 
 const parsed = envSchema.safeParse(process.env);
