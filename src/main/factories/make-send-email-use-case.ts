@@ -1,9 +1,10 @@
+import type { EmailSenderProvider } from "@/application/ports/email-sender-provider.interface.js";
 import { SendEmailUseCase } from "../../application/use-cases/send-email/send-email.use-case.js";
 import { env } from "../../config/env.js";
 import { EmailAddress } from "../../domain/value-objects/email-address.vo.js";
 import { makeNodemailerEmailProvider } from "./make-nodemailer-email-provider.js";
 
-export function makeSendEmailUseCase(): SendEmailUseCase {
+export function makeSendEmailUseCase(emailSender: EmailSenderProvider): SendEmailUseCase {
     return new SendEmailUseCase(
         makeNodemailerEmailProvider(),
         EmailAddress.create(env.MAIL_FROM)

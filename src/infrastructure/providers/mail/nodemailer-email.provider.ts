@@ -34,4 +34,8 @@ export class NodemailerEmailProvider implements EmailSenderProvider {
             throw new FailedToSendEmailError();
         }
     }
+
+    close(): void {
+        this.transporter.close();
+    }
 }
