@@ -30,7 +30,10 @@ export function errorHandler(
         request.log.error({ err: error.cause }, "Failed to send email");
         return reply.status(502).send({
             error: "EmailDeliveryFailed",
-            message: "Could not deliver the email. Try again later."
+            message: "Could not deliver the email. Try again later.",
+            ...(process.env.NODE_ENV === "development" && {
+                debug: String(error.cause),
+            }),
         });
     }
 
