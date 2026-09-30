@@ -29,7 +29,10 @@ const envSchema = z.object({
         .string({ error: "SMTP_PASS is required" })
         .min(1, "SMTP_PASS cannot be empty"),
 
-    MAIL_FROM: z.email({ error: "MAIL_FROM must be a valid email address" })
+    MAIL_FROM: z.email({ error: "MAIL_FROM must be a valid email address" }),
+    API_KEY: z
+        .string({ error: "API_KEY is required" })
+        .min(32, "API_KEY must have at least 32 characters")
 });
 
 const parsed = envSchema.safeParse(process.env);
