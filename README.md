@@ -124,7 +124,7 @@ scripts/
 ## Instalação
 
 ```bash
-git clone https://github.com/<seu-usuario>/email-service.git
+git clone https://github.com/foxzinnx/email-service.git
 cd email-service
 npm install
 cp .env.example .env
